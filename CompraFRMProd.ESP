@@ -1,0 +1,396 @@
+
+----------------------------------------------------------
+     Compra.frm
+----------------------------------------------------------
+[Compra.frm/Forma.ListaAcciones]
+Otros8=CFDCancelacionHist
+CFDCancelacionHist=CFDMotivoCancelacion
+CFDMotivoCancelacion=Otros9
+Otros9=Copiar Meses
+Copiar Meses=ModificarAlm
+ModificarAlm=ActTipoCambioDiaPed
+Consecutivo=ActualizarPrecios
+ActTipoCambioDiaPed=Consecutivo
+ActualizarPrecios=ProrratrearArt
+ProrratrearArt=(Fin)
+
+[Compra.frm/Detalle.ListaAcciones]
+Proyectos=CambioCostos
+CambioCostos=DetalleEvaluacion
+DetalleEvaluacion=
+EmidaDetalle=Evaluacion
+Evaluacion=(Fin)
+
+[Compra.frm/Forma.ListaCarpetas]
+AsociarCFD=ComentarioEncabezado
+ComentarioEncabezado=ComentarioDetalle
+ComentarioDetalle=(Fin)
+
+[Compra.frm/Acciones.Evaluacion.Asig]
+Nombre=Asig
+Boton=0
+TipoAccion=Expresion
+Expresion=Asigna(Info.Id,Compra:Compra.ID)<BR>Asigna(Info.Articulo, CompraD:CompraD.Articulo)<BR>Asigna(Info.RenglonId, CompraD:CompraD.RenglonID)
+Activo=S
+Visible=S
+
+[Compra.frm/Acciones.Evaluacion.Evaluar]
+Nombre=Evaluar
+Boton=0
+TipoAccion=Formas
+ClaveAccion=DOGOEVALUACIONCOMS
+Activo=S
+Visible=S
+
+[Compra.frm/Acciones.Evaluacion]
+Nombre=Evaluacion
+Boton=0
+NombreDesplegar=&Evaluacion
+Multiple=S
+EnMenu=S
+ListaAccionesMultiples=(Lista)
+Visible=S
+ActivoCondicion=Compra:Compra.Mov en (<T>Control Calidad<T>,<T>Control Calidad Imp<T>)
+
+[Compra.frm/Acciones.Evaluacion.ListaAccionesMultiples]
+(Inicio)=Asig
+Asig=Evaluar
+Evaluar=(Fin)
+
+[Compra.Frm/Acciones.otros1]
+Nombre=otros1
+Boton=56
+Menu=&Archivo
+NombreDesplegar=&Etiquetas
+GuardarAntes=S
+EnBarraHerramientas=S
+EnMenu=S
+TipoAccion=Expresion
+ListaParametros1=Compra:Compra.ID
+Visible=S
+Activo=S
+Expresion=ReportePantalla(<T>MURSPETIQUETASCOMPRAS<T>,Compra:Compra.ID)
+
+[Compra.Frm/Acciones.ArtExpress]
+ActivoCondicion=Usuario.AgregarArtExpress y (Compra:Compra.Estatus=EstatusSinAfectar) y (Compra:Compra.Situacion=<T>Autorizado Articulo Express<T>)
+
+[Compra.Frm/Acciones.SeriesLotes]
+ActivoCondicion=(Config.SeriesLotesMayoreo) y (MovTipoEn(<T>COMS<T>, Compra:Compra.Mov, (COMS.F,COMS.FL,COMS.EG,COMS.EI,COMS.IG,COMS.D,COMS.DG,COMS.CC,COMS.DC,COMS.B,COMS.CA,COMS.GX,COMS.O))  o (MovSubTipo(<T>COMS<T>, Compra:Compra.Mov) = <T>COMS.EIMPO<T>))
+
+[Compra.Frm/Acciones.Situacion]
+Expresion=Si  fnMovSituacionTipoFlujo(Empresa, <T>COMS<T>, Compra:Compra.Mov, Compra:Compra.Estatus) = <T>Condicional<T><BR>Entonces<BR>  Forma(<T>MovSituacionBinariaSiguiente<T>)<BR>ActualizarVista<BR>Sino<BR>  Forma.Accion(<T>WizardSituaciones<T>)<BR>Fin ReportePDF(<T>OCEDV<T>,Compra:Compra.Id,<T>\\Navi2\ordencompra\<T>+Compra:Compra.Mov+<T><T>+Compra:Compra.Movid)
+
+[Compra.Frm/Ficha.Compra.Observaciones]
+Carpeta=Notas
+Clave=Compra.Observaciones
+Editar=S
+LineaNueva=S
+ValidaNombre=S
+3D=S
+Tamano=65
+EspacioPrevio=N
+ColorFondo=Blanco
+EditarConBloqueo=S
+
+[Compra.Frm/Ficha.Compra.TipoCambio]
+Tamano=10
+
+[Compra.Frm/Ficha.ListaEnCaptura]
+(Inicio)=Compra.Mov
+Compra.Mov=Compra.MovID
+Compra.MovID=Compra.Proyecto
+Compra.Proyecto=Compra.UEN
+Compra.UEN=Compra.Moneda
+Compra.Moneda=Compra.TipoCambio
+Compra.TipoCambio=Compra.FechaEmision
+Compra.FechaEmision=Compra.FechaProveedor
+Compra.FechaProveedor=Compra.FechaRequerida
+Compra.FechaRequerida=Compra.Concepto
+Compra.Concepto=Compra.Agente
+Compra.Agente=Compra.FechaEntrega
+Compra.FechaEntrega=Compra.Proveedor
+Compra.Proveedor=Prov.Nombre
+Prov.Nombre=Compra.ListaPreciosEsp
+Compra.ListaPreciosEsp=Compra.Descuento
+Compra.Descuento=Compra.Condicion
+Compra.Condicion=Compra.Vencimiento
+Compra.Vencimiento=Compra.Referencia
+Compra.Referencia=Compra.Almacen
+Compra.Almacen=Compra.FormaEnvio
+Compra.FormaEnvio=Compra.Observaciones
+Compra.Observaciones=Compra.ReferenciaMES
+Compra.ReferenciaMES=Compra.MovIntelisisMES
+Compra.MovIntelisisMES=Compra.PosicionWMS
+Compra.PosicionWMS=Compra.CrossDocking
+Compra.CrossDocking=Compra.Directo
+Compra.Directo=Compra.VerDestino
+Compra.VerDestino=Compra.CancelarPendiente
+Compra.CancelarPendiente=(Fin)
+
+[Compra.frm/Acciones.RepPantalla]
+Antes=S
+AntesExpresiones=Asigna(Info.id,Compra:Compra.ID)
+
+[Compra.frm/Acciones.RepImpresora]
+Antes=S
+AntesExpresiones=Asigna(Info.id,Compra:Compra.ID)
+
+[Compra.frm/Acciones.CFDCancelacionHist]
+Nombre=CFDCancelacionHist
+Boton=0
+NombreDesplegar=Histórico de Cancelaciones
+EnMenu=S
+TipoAccion=Formas
+Activo=S
+Visible=S
+Menu=&Ver
+EspacioPrevio=S
+ClaveAccion=CFDCancelacionHist
+Antes=S
+AntesExpresiones=Asigna(Info.Modulo, <T>COMS<T>)<BR>Asigna(Info.ID, Compra:Compra.ID)<BR>Asigna(Info.MovID, Compra:Compra.MovID)
+
+[Compra.frm/Acciones.CFDMotivoCancelacion]
+Nombre=CFDMotivoCancelacion
+Boton=0
+NombreEnBoton=S
+Menu=&Edición
+NombreDesplegar=&CFD Motivo Cancelacion
+EnMenu=S
+TipoAccion=Formas
+ClaveAccion=CFDMotivoCancelacionModulo
+Activo=S
+Antes=S
+AntesExpresiones=Asigna(Info.ModuloWMS , <T>COMS<T>)<BR>Asigna(Info.IDR, Compra:Compra.ID)
+VisibleCondicion=Compra:Compra.Estatus en (<T>CONCLUIDO<T>, <T>PENDIENTE<T>, <T>CANCELADO<T>)
+
+[Compra.frm/Detalle.CompraD.FechaCaducidad]
+EditarConBloqueo=S
+
+[Compra.frm/Detalle.Columnas]
+Descripcion1=214
+
+[Compra.frm/Detalle.ListaEnCaptura]
+ClaveIdioma=Art.Descripcion1
+Art.Descripcion1=CompraD.Cantidad
+
+[Compra.frm/Detalle.Art.Descripcion1]
+Carpeta=Detalle
+Clave=Art.Descripcion1
+Editar=S
+LineaNueva=S
+ValidaNombre=S
+3D=S
+Tamano=100
+ColorFondo=Blanco
+
+[Compra.frm/Acciones.Copiar Meses]
+Nombre=Copiar Meses
+Boton=0
+NombreDesplegar=Copiar en el Tiempo
+EnMenu=S
+TipoAccion=Controles Captura
+Activo=S
+Visible=S
+Menu=&Archivo
+GuardarAntes=S
+ClaveAccion=Documento Abrir
+Antes=S
+AntesExpresiones=Asigna(Info.Modulo, <T>COMS<T>)<BR>Asigna(Info.ID, Compra:Compra.ID)<BR>Asigna(Info.Mov, Compra:Compra.Mov)<BR>Asigna(Info.MovID, Compra:Compra.MovID)<BR>Si(no Forma(<T>MovCopiarMeses<T>),  AbortarOperacion)
+DespuesGuardar=S
+
+[Compra.frm/Acciones.ModificarAlm]
+Nombre=ModificarAlm
+Boton=0
+Menu=&Edición
+NombreDesplegar=&Modificar Almacen
+GuardarAntes=S
+RefrescarDespues=S
+EnMenu=S
+TipoAccion=Formas
+ClaveAccion=CompraModificarAlmacen
+Antes=S
+ActivoCondicion=Compra:Compra.Estatus=EstatusPendiente
+AntesExpresiones=Si<BR>  MovTipo(<T>COMS<T>,Compra:Compra.Mov)=COMS.O<BR>Entonces<BR>  Asigna(Info.Mov, Compra:Compra.Mov)<BR>  Asigna(Info.MovID, Compra:Compra.MovID)<BR>  Asigna(Info.ID, Compra:Compra.ID)<BR>Sino<BR>  Asigna(Info.Mov, Compra:Compra.Mov)<BR>  Asigna(Info.MovID,Compra:Compra.MovID)<BR>  Asigna(Info.ID,Compra:Compra.ID)<BR>Fin
+VisibleCondicion=MovTipo(<T>COMS<T>,Compra:Compra.Mov)<>COMS.F
+
+[Compra.frm/Acciones.Consecutivo]
+Nombre=Consecutivo
+Boton=0
+NombreDesplegar=A&signar Consecutivo
+EnMenu=S
+TipoAccion=Expresion
+Visible=S
+Menu=&Archivo
+GuardarAntes=S
+RefrescarDespues=S
+Expresion=ProcesarSQL(<T>spAfectar :tModulo, :nID, :tAccion<T>, <T>COMS<T>, Compra:Compra.ID, <T>CONSECUTIVO<T>)
+ActivoCondicion=Vacio(Compra:Compra.MovID) y PuedeAfectar(Usuario.Afectar, Usuario.AfectarOtrosMovs, Compra:Compra.Usuario)
+
+[Compra.frm/(Carpeta Totalizadores)]
+CondicionVisible=
+
+[Compra.frm/ComentarioEncabezado]
+Estilo=Ficha
+Pestana=S
+PestanaOtroNombre=S
+PestanaNombre=Comentario Encabezado
+Clave=ComentarioEncabezado
+PermiteEditar=S
+AlineacionAutomatica=S
+AcomodarTexto=S
+MostrarConteoRegistros=S
+Zona=A1
+Vista=Compra
+Fuente={Tahoma, 8, Negro, []}
+FichaEspacioEntreLineas=6
+FichaEspacioNombres=100
+FichaEspacioNombresAuto=S
+FichaNombres=Izquierda
+FichaAlineacion=Izquierda
+FichaAlineacionDerecha=S
+FichaColorFondo=Plata
+CampoColorLetras=Negro
+CampoColorFondo=Blanco
+ListaEnCaptura=Compra.ComentarioEncabezado
+CarpetaVisible=S
+AlinearTodaCarpeta=S
+
+[Compra.frm/ComentarioEncabezado.Compra.ComentarioEncabezado]
+Carpeta=ComentarioEncabezado
+Clave=Compra.ComentarioEncabezado
+Editar=S
+LineaNueva=S
+ValidaNombre=S
+3D=S
+ColorFondo=Blanco
+EditarConBloqueo=S
+
+[Compra.frm/ComentarioDetalle]
+Estilo=Ficha
+Pestana=S
+PestanaOtroNombre=S
+PestanaNombre=Comentario Detalle
+Clave=ComentarioDetalle
+PermiteEditar=S
+AlineacionAutomatica=S
+AcomodarTexto=S
+MostrarConteoRegistros=S
+Zona=A1
+Vista=Compra
+Fuente={Tahoma, 8, Negro, []}
+FichaEspacioEntreLineas=6
+FichaEspacioNombres=100
+FichaEspacioNombresAuto=S
+FichaNombres=Izquierda
+FichaAlineacion=Izquierda
+FichaAlineacionDerecha=S
+FichaColorFondo=Plata
+CampoColorLetras=Negro
+CampoColorFondo=Blanco
+ListaEnCaptura=Compra.ComentarioDetalle
+CarpetaVisible=S
+AlinearTodaCarpeta=S
+
+[Compra.frm/ComentarioDetalle.Compra.ComentarioDetalle]
+Carpeta=ComentarioDetalle
+Clave=Compra.ComentarioDetalle
+Editar=S
+LineaNueva=S
+ValidaNombre=S
+3D=S
+ColorFondo=Blanco
+EditarConBloqueo=S
+
+[Compra.frm/CompraImportacion]
+CondicionVisible=MovTipo(<T>COMS<T>, Compra:Compra.Mov) en ( COMS.EI, COMS.OI) ) o (MovSubTipo(<T>COMS<T>, Compra:Compra.Mov) = <T>COMS.EIMPO<T>)
+
+[Compra.frm/Acciones.Verificar]
+RefrescarDespues=S
+
+[Compra.frm/CompraImportacion.CompraImportacion.GuiaEntrega]
+LineaNueva=S
+
+[Compra.frm/Acciones.ActTipoCambioDiaPed]
+Nombre=ActTipoCambioDiaPed
+Boton=64
+NombreEnBoton=S
+Menu=&Edición
+UsaTeclaRapida=S
+TeclaRapida=Shift+Ctrl+M
+NombreDesplegar=&Actualiza Tipo Cambio Fecha Pedimento
+EnBarraHerramientas=S
+EnMenu=S
+TipoAccion=Expresion
+Antes=S
+GuardarAntes=S
+DespuesGuardar=S
+Expresion=ProcesarSQL(<T>NVK_XPTipoCambioXFechaImport :nID<T>, Compra:Compra.ID)<BR> Forma.Accion(<T>Guardar<T>)
+ActivoCondicion=(Compra:Compra.Estatus=EstatusSinAfectar) y (MovTipo(<T>COMS<T>,Compra:Compra.Mov)=COMS.OI)
+VisibleCondicion=(Compra:Compra.Estatus=EstatusSinAfectar) y (MovTipo(<T>COMS<T>,Compra:Compra.Mov)=COMS.OI)
+AntesExpresiones=Forma.Accion(<T>Guardar<T>)
+RefrescarDespues=S
+
+[Compra.frm/Acciones.ActualizarPrecios]
+Nombre=ActualizarPrecios
+Boton=0
+Menu=&Archivo
+UsaTeclaRapida=S
+TeclaRapida=Shift+Ctrl+F5
+EsDefault=S
+NombreDesplegar=Actualizar &Precios
+GuardarAntes=S
+RefrescarDespues=S
+EnMenu=S
+ConfirmarAntes=S
+DialogoMensaje=EstaSeguro
+TipoAccion=Expresion
+Expresion=EjecutarSQL(<T>EXEC spCompraActualizarPrecios :nID<T>, Compra:Compra.ID)
+ActivoCondicion=Compra:Compra.Estatus en (EstatusSinAfectar, EstatusPorConfirmar)
+Visible=S
+BarraBtnFondo=Plata
+BarraBtnFuente={MS Sans Serif, 8, Negro, []}
+BarraBtnTxtAlign=Izquierda
+BarraBtnTxtPos=Arriba
+BarraBtnSubtitFuente={MS Sans Serif, 8, Negro, []}
+BarraBtnDescripFuente={MS Sans Serif, 8, Negro, []}
+BarraBtnImgPos=Arriba
+BarraBtnImgAlign=Izquierda
+BarraBtnSubtituloAli=Izquierda
+BarraBtnDescripcionAli=Izquierda
+BarraBtnSubtituloPos=Arriba
+BarraBtnDescripcionPos=Arriba
+AccionSecTextoFuente={MS Sans Serif, 8, Negro, []}
+AccionSecColor=Plata
+AccionSecAli=Izquierda
+
+
+[Compra.frm/Acciones.CambioCostos]
+Nombre=CambioCostos
+Boton=0
+UsaTeclaRapida=S
+TeclaRapida=Ctrl+K
+NombreDesplegar=Cambiar Costos
+EnMenu=S
+TipoAccion=Expresion
+Antes=S
+Expresion=Si Forma(<T>EspecificarImporte<T>) Entonces ProcesarSQL(<T>xp_NVK_ActualizaCostos :nID, :nR, :nRs,:tA,:nC<T>,Info.ID, Info.Renglon, Info.RenglonSub,Info.Articulo,Info.Importe ) ActualizarVista Fin
+ActivoCondicion=(Compra:Compra.Estatus=EstatusPendiente) y (Usuario.Digitalizar)
+AntesExpresiones=Asigna(Info.Id, CompraD:CompraD.ID)<BR>Asigna(Info.Renglon, CompraD:CompraD.Renglon)<BR>Asigna(Info.RenglonSub, CompraD:CompraD.RenglonSub)<BR>Asigna(Info.Articulo, CompraD:CompraD.Articulo)
+VisibleCondicion=MovTipo(<T>COMS<T>,Compra:Compra.Mov) = COMS.O
+
+[Compra.frm/Acciones.ProrratrearArt]
+Nombre=ProrratrearArt
+Boton=0
+NombreDesplegar=Prorratear en Base a &Articulo(s)...
+GuardarAntes=S
+EnMenu=S
+TipoAccion=Formas
+Visible=S
+Menu=&Archivo
+RefrescarDespues=S
+ClaveAccion=CompraProrratearArt
+Antes=S
+ActivoCondicion=(Compra:Compra.Estatus=EstatusSinAfectar) y MovTipoEn(<T>COMS<T>, Compra:Compra.Mov, (COMS.GX))
+AntesExpresiones=Asigna(Info.ID, Compra:Compra.ID)<BR>Asigna(Info.Moneda, Compra:Compra.Moneda)<BR>Asigna(Info.TipoCambio, Compra:Compra.TipoCambio)
+DespuesGuardar=S
+
