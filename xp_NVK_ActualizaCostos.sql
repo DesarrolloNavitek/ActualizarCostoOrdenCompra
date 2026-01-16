@@ -1,4 +1,5 @@
 --exec dbo.xp_NVK_ActualizaCostos 21088,20480.0,0,'L-0006',121.0
+--exec spALTER_TABLE 'Usuario','ModificarCosto','bit'
 SET DATEFIRST 7  
 SET ANSI_NULLS OFF  
 SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED  
@@ -53,4 +54,5 @@ ELSE
 	RETURN
 
 RETURN
+
 END
